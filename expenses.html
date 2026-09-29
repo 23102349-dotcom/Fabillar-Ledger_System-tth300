@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — Expenses</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<header class="spine">
+  <div class="spine-title"><span class="block-icon"></span><span class="title-text">LEDGER<span>Personal expense book</span></span></div>
+  <a class="tab" href="index.html">Dashboard</a>
+  <a class="tab active" href="expenses.html">Expenses</a>
+  <a class="tab" href="expense-form.html">Add Expense</a>
+</header>
+ 
+<main>
+  <div class="page-head">
+    <h1>Expenses</h1>
+    <a class="btn" href="expense-form.html">Add expense</a>
+  </div>
+ 
+  <div class="field" style="max-width: 280px; margin-bottom: 20px;">
+    <label for="filter">Filter by category</label>
+    <select id="filter">
+      <option value="">All categories</option>
+    </select>
+  </div>
+ 
+  <table class="ledger" id="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th class="num">Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+ 
+  <div class="empty-state" id="empty" style="display:none;">
+    <h3>No expenses yet</h3>
+    <p>Entries you add will be recorded here, ruled up like a proper ledger.</p>
+    <a class="btn" href="expense-form.html">Add your first expense</a>
+  </div>
+</main>
+ 
+<script src="app.js"></script>
+<script>

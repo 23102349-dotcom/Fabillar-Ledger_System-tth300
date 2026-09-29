@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — Add Expense</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<header class="spine">
+  <div class="spine-title"><span class="block-icon"></span><span class="title-text">LEDGER<span>Personal expense book</span></span></div>
+  <a class="tab" href="index.html">Dashboard</a>
+  <a class="tab" href="expenses.html">Expenses</a>
+  <a class="tab active" href="expense-form.html">Add Expense</a>
+</header>
+ 
+<main>
+  <div class="page-head center">
+    <h1 id="form-title">Add expense</h1>
+  </div>
+ 
+  <form class="form-card" id="expense-form" novalidate>
+    <div class="field">
+      <label for="description">Description</label>
+      <input type="text" id="description" name="description" placeholder="e.g. Grocery run — SM" autocomplete="off">
+      <div class="error-msg" id="err-description"></div>
+    </div>
+ 
+    <div class="field-row">
+      <div class="field">
+        <label for="amount">Amount (₱)</label>
+        <input type="number" id="amount" name="amount" step="0.01" min="0" placeholder="0.00">
+        <div class="error-msg" id="err-amount"></div>
+      </div>
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date">
+        <div class="error-msg" id="err-date"></div>
+      </div>
+    </div>
+ 
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category" name="category"></select>
+    </div>
+ 
+    <div class="form-actions">
+      <button type="submit" class="btn" id="submit-btn">Save expense</button>
+      <a class="btn btn-outline" href="expenses.html">Cancel</a>
+    </div>
+  </form>
+</main>
+ 
+<script src="app.js"></script>
+<script>
