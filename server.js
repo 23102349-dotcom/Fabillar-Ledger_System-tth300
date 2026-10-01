@@ -27,6 +27,15 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
+// Simple API health check
+app.get("/api/health", (req, res) => {
+    res.json({
+        status: "OK",
+        message: "Expense Tracker API is running."
+    });
+});
+
+// Get all expenses
 app.get("/api/expenses", (req, res) => {
     const sql = `
         SELECT
@@ -53,6 +62,7 @@ app.get("/api/expenses", (req, res) => {
     });
 });
 
+// Get one expense
 app.get("/api/expenses/:id", (req, res) => {
     const sql = `
         SELECT
@@ -85,13 +95,18 @@ app.get("/api/expenses/:id", (req, res) => {
     });
 });
 
+// Add new expense
 app.post("/api/expenses", (req, res) => {
-    const {
+    let {
         description,
         amount,
         date,
         category
     } = req.body;
+
+    // Remove unnecessary spaces
+    description = description?.trim();
+    category = category?.trim();
 
     if (
         !description ||
@@ -101,6 +116,13 @@ app.post("/api/expenses", (req, res) => {
     ) {
         return res.status(400).json({
             message: "All fields are required."
+        });
+    }
+
+    // Validate amount
+    if (isNaN(amount) || Number(amount) <= 0) {
+        return res.status(400).json({
+            message: "Amount must be a valid positive number."
         });
     }
 
@@ -138,13 +160,18 @@ app.post("/api/expenses", (req, res) => {
     );
 });
 
+// Update expense
 app.put("/api/expenses/:id", (req, res) => {
-    const {
+    let {
         description,
         amount,
         date,
         category
     } = req.body;
+
+    // Remove unnecessary spaces
+    description = description?.trim();
+    category = category?.trim();
 
     if (
         !description ||
@@ -154,6 +181,13 @@ app.put("/api/expenses/:id", (req, res) => {
     ) {
         return res.status(400).json({
             message: "All fields are required."
+        });
+    }
+
+    // Validate amount
+    if (isNaN(amount) || Number(amount) <= 0) {
+        return res.status(400).json({
+            message: "Amount must be a valid positive number."
         });
     }
 
@@ -202,6 +236,7 @@ app.put("/api/expenses/:id", (req, res) => {
     );
 });
 
+// Delete expense
 app.delete("/api/expenses/:id", (req, res) => {
     const sql = `
         DELETE FROM expenses
@@ -233,6 +268,9 @@ app.delete("/api/expenses/:id", (req, res) => {
     );
 });
 
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Expense Tracker server running on port ${PORT}`);
+    console.log(`Open http://localhost:${PORT} in your browser.`);
 });
+
